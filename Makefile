@@ -1,7 +1,7 @@
 .PHONY: generate
 generate:
-	@npm ci
-	@npm run generate
+	@npm ci --quiet
+	@npm run generate --silent
 
 .PHONY: bump_version
 bump_version:
