@@ -1,0 +1,15 @@
+{
+  "name": "tickers-typescript-example",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "npx ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.9.5",
+    "@finazon/finazon-grpc-node": "*"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
