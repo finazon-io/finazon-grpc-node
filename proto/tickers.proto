@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package finazon;
+
+//Stocks
+
+message TickerStocksInfo {
+    string ticker = 1;
+    string country = 2;
+    string currency = 3;
+    // string mic = 4;
+    string publisher = 4;
+    string publisher_name = 5;
+}
+
+message FindTickersStocksRequest {
+    string ticker = 1;
+    string publisher = 2;
+    string country = 3;
+    string mic = 4;
+    int32  page = 5;
+    int32  page_size = 6;
+    string cqs = 11;
+    string cik = 12;
+    string cusip = 13;
+    string isin = 14;
+    string composite_figi = 15;
+    string share_figi = 16;
+    string lei = 17;
+}
+
+message FindTickerStocksResponse {
+    repeated TickerStocksInfo result = 1;
+}
+
+//Crypto
+
+message TickerCryptoInfo {
+    string ticker = 1;
+    string publisher = 2;
+    string publisher_name = 3;
+}
+
+message FindTickersCryptoRequest {
+    string ticker = 1;
+    string publisher = 2;
+    string market = 3;
+    int32  page = 4;
+    int32  page_size = 5;
+}
+
+message FindTickerCryptoResponse {
+    repeated TickerCryptoInfo result = 1;
+}
+
+//Forex
+
+message TickerForexInfo {
+    string ticker = 1;
+}
+
+message FindTickersForexRequest {
+    string ticker = 1;
+    int32  page = 2;
+    int32  page_size = 3;
+}
+
+message FindTickerForexResponse {
+    repeated TickerForexInfo result = 1;
+}
+
+/**
+ * TickersService provide access to tickers
+ */
+service TickersService {
+    // This API call returns an array of stocks tickers available at Finazon Data API. This list is updated daily.
+    rpc FindTickersStocks(FindTickersStocksRequest) returns (FindTickerStocksResponse) {};
+
+    // This API call returns an array of crypto tickers available at Finazon Data API. This list is updated daily.
+    rpc FindTickersCrypto(FindTickersCryptoRequest) returns (FindTickerCryptoResponse) {};
+
+    // This API call returns an array of forex tickers available at Finazon Data API. This list is updated daily.
+    rpc FindTickersForex(FindTickersForexRequest) returns (FindTickerForexResponse) {};
+}
