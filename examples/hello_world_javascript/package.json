@@ -1,0 +1,12 @@
+{
+  "name": "hello-world-javascript-example",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node hello_world.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.9.5",
+    "@finazon/finazon-grpc-node": "*"
+  }
+}
