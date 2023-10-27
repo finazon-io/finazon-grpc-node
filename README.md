@@ -1,42 +1,39 @@
-# Finazon node client for grpc
 
-Official Node library for Finazon. This package supports all main features of the service:
- - Get datasets, publishers, markets, tickers list
- - Get market data (ticker snapshot, time series, trades, technical indicators)
- - Get dataset specific data (Benzinga, Binance, Crypto, Forex, SEC, SIP)
- - Javascript and Typescript both supported
+# Finazon Node gRPC Client
 
-**API key** is required. If you don't have it yet, get it by signing up [here](https://finazon.io/).
+This is the official Node.js library for Finazon, offering access to:
+- Lists of datasets, publishers, markets, and tickers.
+- Market data: ticker snapshots, time series, trades, and technical indicators.
+- Data from specific datasets such as Benzinga, Binance, Crypto, Forex, SEC, and SIP.
+- Full compatibility with both JavaScript and TypeScript.
 
-## Installation
+🔑 **API key** is essential. If you haven't got one yet, [sign up here](https://finazon.io/).
 
-You'll need to have Node 18.0.0 or later version on your local development machine. We recommend using the latest LTS version. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
+## Installation requirements
+Ensure you have Node.js v18.0.0 or later. We recommend the latest LTS version. Use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) for Node version management across projects.
 
-### npm
-
+### Using npm
 ```bash
 npm install @finazon/finazon-grpc-node --save
 ```
 
-### yarn
-
+### Using yarn
 ```bash
 yarn add @finazon/finazon-grpc-node
 ```
 
-Npm package: https://www.npmjs.com/package/@finazon/finazon-grpc-node
+🔗 View the package on [npm](https://www.npmjs.com/package/@finazon/finazon-grpc-node).
 
+## Quick start
 
-## Quick Start
-
-### 1. Create a new project and install required dependencies
+### 1. Set up a new project
 ```bash
 mkdir hello-finazon && cd hello-finazon
 npm init -y
 npm install --save-dev @grpc/grpc-js @finazon/finazon-grpc-node
 ```
 
-### 2. Create hello-world.js script
+### 2. Create `hello-world.js` script
 
 ```javascript
 const { credentials, Metadata } = require('@grpc/grpc-js');
@@ -64,15 +61,14 @@ datasetsService.getDatasets(request, meta, (err, value) => {
 
 ```
 
-### 3. Set correct api key into API_KEY varaible
+### 3. Input your API key
+Replace `'your_api_key'` with your actual key.
 
-### 4. Run example
-
+### 4. Run the example
 ```bash
 node hello-world.js
 ```
-
-Example output:
+📝 Expected output:
 ```json
 {
   "resultList": [
@@ -84,10 +80,11 @@ Example output:
 }
 ```
 
-You can find this example [here](https://github.com/finazon-io/finazon-grpc-node/tree/main/examples/hello_world_javascript)
+👀 Check the full example [here](https://github.com/finazon-io/finazon-grpc-node/tree/main/examples/hello_world_javascript).
 
+## RPC support
 
-## Supported rpc list
+The following table outlines the supported rpc calls:
 
 | Service           | rpc                     | Description                                   |
 |-------------------|-------------------------|-----------------------------------------------|
@@ -120,45 +117,41 @@ You can find this example [here](https://github.com/finazon-io/finazon-grpc-node
 | TimeSeriesService | GetTimeSeriesStoch      | Get time series data for Stoch technical indicator |
 | TradeService      | GetTrades               | Returns general information on executed trades |
 
+Here's how you can import `client` and `request` objects:
 
-You can import `client` and `request` objects for `ServiceName` and `RpcName` like this:
-
-<pre>
-const { <b>ServiceName</b>ServiceClient } = require('@finazon/finazon-grpc-node/<b>service_name</b>_grpc_pb');
-const { <b>RpcName</b>Request } = require('@finazon/finazon-grpc-node/<b>rpc_name</b>_pb');
+```javascript
+const { ServiceNameServiceClient } = require('@finazon/finazon-grpc-node/service_name_grpc_pb');
+const { RpcNameRequest } = require('@finazon/finazon-grpc-node/rpc_name_pb');
 
 // ...
 
-const service = new <b>ServiceName</b>ServiceClient('grpc-latest.finazon.io:443', credentials.createSsl());
-const request = new <b>RpcName</b>Request();
-service.<b>RpcName</b>(request, meta, (err, value) => {});
-</pre>
+const service = new ServiceNameServiceClient('grpc-latest.finazon.io:443', credentials.createSsl());
+const request = new RpcNameRequest();
+service.RpcName(request, meta, (err, value) => {});
+```
 
 ## Documentation
+Delve deeper with our [official documentation](https://finazon.io/docs).
 
-You can find instructions and many tips in its [documentation](https://finazon.io/docs).
-
-## Usage Examples
-
-See [examples](https://github.com/finazon-io/finazon-grpc-node/tree/main/examples) folder in this repo.
-
+## Examples
+Explore practical scenarios in the [examples](https://github.com/finazon-io/finazon-grpc-node/tree/main/examples) directory.
 
 ## Support
+- 🌐 Visit our [contact page](https://finazon.io/contact-sales).
+- 🛠 Or our [support center](https://support.finazon.io/en/).
 
-Visit our official website [contact page](https://finazon.io/contact-sales) or [support center](https://support.finazon.io/en/).
-
-## Announcements
-
-Follow us on [𝕏](https://twitter.com/finazon_io) for announcements and updates about this library.
+## Stay updated
+- Follow us on [𝕏](https://twitter.com/finazon_io).
+- Join our community on [Discord](https://discord.gg/D5u4ZpB7w7).
+- Follow us on [LinkedIn](https://www.linkedin.com/company/finazon).
 
 ## Contributing
+1. Fork and clone: `$ git clone https://github.com/finazon-io/finazon-grpc-node.git`.
+2. Branch out: `$ cd finazon-grpc-node && git checkout -b my-feature`.
+3. Commit changes and test.
+4. Push your branch and open a pull request with a comprehensive description.
 
-1. Clone repo and create a new branch: `$ git clone https://github.com/finazon-io/finazon-grpc-node.git`.
-2. Create a new branch: `$ cd finazon-grpc-node && git checkout -b some-branch`.
-2. Make changes and test.
-3. Submit Pull Request with comprehensive description of changes.
-
-More info about contributing you can find [GitHub Docs](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
+For more guidance on contributing, see the [GitHub Docs](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) on GitHub.
 
 ## License
 
