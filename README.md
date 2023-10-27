@@ -159,3 +159,7 @@ Follow us on [𝕏](https://twitter.com/finazon_io) for announcements and update
 3. Submit Pull Request with comprehensive description of changes.
 
 More info about contributing you can find [GitHub Docs](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE.txt` file in this repository for more details.
