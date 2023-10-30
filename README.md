@@ -37,21 +37,22 @@ npm install --save-dev @grpc/grpc-js @finazon/finazon-grpc-node
 
 ```javascript
 const { credentials, Metadata } = require('@grpc/grpc-js');
-const { DatasetsRequest } = require('@finazon/finazon-grpc-node/datasets_pb');
-const { DatasetsServiceClient } = require('@finazon/finazon-grpc-node/datasets_grpc_pb');
+const { TimeSeriesRequest } = require('@finazon/finazon-grpc-node/time_series_pb');
+const { TimeSeriesServiceClient } = require('@finazon/finazon-grpc-node/time_series_grpc_pb');
 
 const HOST ='grpc-latest.finazon.io:443'
 const API_KEY = 'your_api_key';
 
-const datasetsService = new DatasetsServiceClient(HOST, credentials.createSsl());
+const timeSeriesService = new TimeSeriesServiceClient(HOST, credentials.createSsl());
 
-const request = new DatasetsRequest();
-request.setCode('sip_non_pro');
+const request = new TimeSeriesRequest();
+request.setDataset('sip_non_pro');
+request.setTicker('AAPL');
 
 const meta = new Metadata();
 meta.set('authorization', `Bearer ${API_KEY}`);
 
-datasetsService.getDatasets(request, meta, (err, value) => {
+timeSeriesService.getTimeSeries(request, meta, (err, value) => {
   if (err) {
     console.error(err);
     return;
@@ -69,12 +70,33 @@ Replace `'your_api_key'` with your actual key.
 node hello-world.js
 ```
 📝 Expected output:
-```json
+```json5
 {
   "resultList": [
     {
-      "code": "sip_non_pro",
-      "name": "Real-Time Stock API: Stock Market Data"
+      "timestamp": 1698438120,
+      "open": 167.85,
+      "close": 167.83,
+      "high": 167.91,
+      "low": 167.83,
+      "volume": 2020
+    },
+    {
+      "timestamp": 1698436740,
+      "open": 168.095,
+      "close": 168.22,
+      "high": 168.34,
+      "low": 168.06,
+      "volume": 7874313
+    },
+    // ...
+    {
+      "timestamp": 1698435060,
+      "open": 168.07,
+      "close": 167.965,
+      "high": 168.1,
+      "low": 167.96,
+      "volume": 131572
     }
   ]
 }
