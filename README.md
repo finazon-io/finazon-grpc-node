@@ -109,6 +109,7 @@ node hello-world.js
 The following table outlines the supported rpc calls:
 <!--rpc_table_boundary-->
 | Service              | rpc                       | Description                                        |
+|----------------------|---------------------------|----------------------------------------------------|
 | ApiUsageService      | GetApiUsage               | Get a list of products with quota limit/usage      |
 | BenzingaService      | GetDividentsCalendar      | Returns the dividends calendar from Benzinga       |
 | BenzingaService      | GetEarningsCalendar       | Returns the earnings calendar from Benzinga        |
