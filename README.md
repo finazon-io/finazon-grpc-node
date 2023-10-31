@@ -143,16 +143,14 @@ The following table outlines the supported rpc calls:
 Here's how you can import `client` and `request` objects:
 
 ```javascript
-// example: TimeSeriesService => ServiceName = TimeSeries
 const { ServiceNameServiceClient } = require('@finazon/finazon-grpc-node/service_name_grpc_pb');
-// example: getTimeSeries => RpcFullName = getTimeSeries, RpcWithoutGet = TimeSeries
-const { RpcWithoutGetRequest } = require('@finazon/finazon-grpc-node/service_name_pb');
+const { RpcNameRequest } = require('@finazon/finazon-grpc-node/service_name_pb');
 
 // ...
 
 const service = new ServiceNameServiceClient('grpc-latest.finazon.io:443', credentials.createSsl());
-const request = new RpcWithoutGetRequest();
-service.RpcFullName(request, meta, (err, value) => {});
+const request = new RpcNameRequest();
+service.rpcName(request, meta, (err, value) => {});
 ```
 
 ## Documentation
