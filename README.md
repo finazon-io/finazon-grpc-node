@@ -37,7 +37,7 @@ npm install --save-dev @grpc/grpc-js @finazon/finazon-grpc-node
 
 ```javascript
 const { credentials, Metadata } = require('@grpc/grpc-js');
-const { TimeSeriesRequest } = require('@finazon/finazon-grpc-node/time_series_pb');
+const { GetTimeSeriesRequest } = require('@finazon/finazon-grpc-node/time_series_pb');
 const { TimeSeriesServiceClient } = require('@finazon/finazon-grpc-node/time_series_grpc_pb');
 
 const HOST ='grpc-latest.finazon.io:443'
@@ -45,7 +45,7 @@ const API_KEY = 'your_api_key';
 
 const timeSeriesService = new TimeSeriesServiceClient(HOST, credentials.createSsl());
 
-const request = new TimeSeriesRequest();
+const request = new GetTimeSeriesRequest();
 request.setDataset('sip_non_pro');
 request.setTicker('AAPL');
 
