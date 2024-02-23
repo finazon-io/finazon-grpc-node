@@ -1,8 +1,8 @@
 import {credentials, Metadata} from '@grpc/grpc-js';
 import {FindTickersCryptoRequest, FindTickerCryptoResponse} from '@finazon/finazon-grpc-node/tickers_pb';
 import {TickersServiceClient} from '@finazon/finazon-grpc-node/tickers_grpc_pb';
+import { FINAZON_GRPC_HOST } from '@finazon/finazon-grpc-node/constants';
 
-const HOST ='grpc-latest.finazon.io:443'
 const API_KEY = "";  // set your api_key here
 
 const main = async () => {
@@ -17,7 +17,7 @@ const main = async () => {
 };
 
 const getTickersCrypto = async (ticker?: string): Promise<FindTickerCryptoResponse> => {
-    const tickersService = new TickersServiceClient(HOST, credentials.createSsl());
+    const tickersService = new TickersServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
 
     const request = new FindTickersCryptoRequest();
     if (ticker) {
