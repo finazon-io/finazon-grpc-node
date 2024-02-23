@@ -3,7 +3,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ### Implementation ##################################################
 function main {
-  local -r version="${1}" # 1.1.101
+  local -r version=$(cat ${SCRIPT_DIR}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[ ",]//g')
   local -r versionMajor=$(printf %.1s "$version") # 1
 
   echo "export const FINAZON_GRPC_HOST: string;" > ${SCRIPT_DIR}/dist/constants.d.ts
