@@ -30,29 +30,24 @@ yarn add @finazon/finazon-grpc-node
 ```bash
 mkdir hello-finazon && cd hello-finazon
 npm init -y
-npm install --save-dev @grpc/grpc-js @finazon/finazon-grpc-node
+npm install --save-dev @finazon/finazon-grpc-node
 ```
 
 ### 2. Create `hello-world.js` script
 
 ```javascript
-const { credentials, Metadata } = require('@grpc/grpc-js');
 const { GetTimeSeriesRequest } = require('@finazon/finazon-grpc-node/time_series_pb');
-const { TimeSeriesServiceClient } = require('@finazon/finazon-grpc-node/time_series_grpc_pb');
-const { FINAZON_GRPC_HOST } = require('@finazon/finazon-grpc-node/constants');
+const { TimeSeriesService } = require('@finazon/finazon-grpc-node/time_series_service');
 
 const API_KEY = 'your_api_key';
 
-const timeSeriesService = new TimeSeriesServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
+const service = new TimeSeriesService(API_KEY);
 
 const request = new GetTimeSeriesRequest();
 request.setDataset('sip_non_pro');
 request.setTicker('AAPL');
 
-const meta = new Metadata();
-meta.set('authorization', `Bearer ${API_KEY}`);
-
-timeSeriesService.getTimeSeries(request, meta, (err, value) => {
+service.getTimeSeries(request, (err, value) => {
   if (err) {
     console.error(err);
     return;
@@ -145,14 +140,14 @@ The following table outlines the supported rpc calls:
 Here's how you can import `client` and `request` objects:
 
 ```javascript
-const { ServiceNameServiceClient } = require('@finazon/finazon-grpc-node/service_name_grpc_pb');
+const { ServiceNameService } = require('@finazon/finazon-grpc-node/service_name_service');
 const { RpcNameRequest } = require('@finazon/finazon-grpc-node/service_name_pb');
 
 // ...
 
-const service = new ServiceNameServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
+const service = new ServiceNameService(API_KEY);
 const request = new RpcNameRequest();
-service.rpcName(request, meta, (err, value) => {});
+service.rpcName(request, (err, value) => {});
 ```
 
 ## Documentation

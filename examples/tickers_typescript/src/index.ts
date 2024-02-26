@@ -1,7 +1,5 @@
-import {credentials, Metadata} from '@grpc/grpc-js';
-import {FindTickersCryptoRequest, FindTickerCryptoResponse} from '@finazon/finazon-grpc-node/tickers_pb';
-import {TickersServiceClient} from '@finazon/finazon-grpc-node/tickers_grpc_pb';
-import { FINAZON_GRPC_HOST } from '@finazon/finazon-grpc-node/constants';
+import { FindTickersCryptoRequest, FindTickerCryptoResponse } from '@finazon/finazon-grpc-node/tickers_pb';
+import { TickersService } from '@finazon/finazon-grpc-node/tickers_service';
 
 const API_KEY = "";  // set your api_key here
 
@@ -17,7 +15,7 @@ const main = async () => {
 };
 
 const getTickersCrypto = async (ticker?: string): Promise<FindTickerCryptoResponse> => {
-    const tickersService = new TickersServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
+    const tickersService = new TickersService(API_KEY);
 
     const request = new FindTickersCryptoRequest();
     if (ticker) {
@@ -25,7 +23,7 @@ const getTickersCrypto = async (ticker?: string): Promise<FindTickerCryptoRespon
     }
 
     const result = await new Promise<FindTickerCryptoResponse>((resolve, reject) => {
-        tickersService.findTickersCrypto(request, getMetadata(), (err, value: FindTickerCryptoResponse) => {
+        tickersService.findTickersCrypto(request, (err, value: FindTickerCryptoResponse) => {
             if (err) {
                 reject(err);
                 return;
@@ -36,11 +34,5 @@ const getTickersCrypto = async (ticker?: string): Promise<FindTickerCryptoRespon
 
     return result;
 };
-
-const getMetadata = () => {
-    const meta = new Metadata();
-    meta.set('authorization', `Bearer ${API_KEY}`);
-    return meta;
-}
 
 main();
