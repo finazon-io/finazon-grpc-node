@@ -1,0 +1,27 @@
+const { credentials, Metadata } = require('@grpc/grpc-js');
+const { {{serviceName}}ServiceClient } = require('./{{snakeCase serviceName}}_grpc_pb');
+const { FINAZON_GRPC_HOST } = require('./constants');
+
+class {{serviceName}}Service {
+    apiKey;
+
+    constructor(apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    {{#each rpcList}}
+    {{firstLower rpcName}}(request, callback) {
+        const {{firstLower ../serviceName}}Service = new {{../serviceName}}ServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
+
+        const meta = new Metadata();
+        meta.set('authorization', `Bearer ${this.apiKey}`);
+        
+        {{firstLower ../serviceName}}Service.{{firstLower rpcName}}(request, meta, (err, value) => {
+            callback(err, value);
+        });
+    }
+
+    {{/each}}
+}
+
+exports.{{serviceName}}Service = {{serviceName}}Service;

@@ -8,6 +8,11 @@ function main {
 
   echo "export const FINAZON_GRPC_HOST: string;" > ${SCRIPT_DIR}/dist/constants.d.ts
   echo "exports.FINAZON_GRPC_HOST='grpc-v${versionMajor}-0.finazon.io:443';" > ${SCRIPT_DIR}/dist/constants.js
+
+  # generate service wrappers
+  docker compose down --rmi local
+  docker compose up
+  docker compose down --rmi local
 }
 
 # Script's entry point: #############################################

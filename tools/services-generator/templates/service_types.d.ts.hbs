@@ -1,0 +1,16 @@
+import { ServiceError } from '@grpc/grpc-js';
+{{#each rpcList}}
+import { {{rpcRequestType}}, {{rpcResponseType}} } from './{{snakeCase ../serviceName}}_pb';
+{{/each}}
+
+{{#each rpcList}}
+export type {{firstLower rpcName}}Callback = (err: ServiceError | null, value: {{rpcResponseType}}) => void;
+{{/each}}
+
+export declare class {{serviceName}}Service {
+    private apiKey;
+    constructor(apiKey: string);
+    {{#each rpcList}}
+    {{firstLower rpcName}}(request: {{rpcRequestType}}, callback: {{firstLower rpcName}}Callback): void;
+    {{/each}}
+}
