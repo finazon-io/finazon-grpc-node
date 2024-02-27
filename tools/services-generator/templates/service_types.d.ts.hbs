@@ -1,4 +1,5 @@
-import { ServiceError } from '@grpc/grpc-js';
+import { ServiceError, Metadata } from '@grpc/grpc-js';
+import { {{serviceName}}ServiceClient } from './{{snakeCase serviceName}}_grpc_pb';
 {{#each rpcList}}
 import { {{rpcRequestType}}, {{rpcResponseType}} } from './{{snakeCase ../serviceName}}_pb';
 {{/each}}
@@ -8,7 +9,9 @@ export type {{firstLower rpcName}}Callback = (err: ServiceError | null, value: {
 {{/each}}
 
 export declare class {{serviceName}}Service {
-    private apiKey;
+    #apiKey: string;
+    #service: {{serviceName}}ServiceClient;
+    #meta: Metadata;
     constructor(apiKey: string);
     {{#each rpcList}}
     {{firstLower rpcName}}(request: {{rpcRequestType}}, callback: {{firstLower rpcName}}Callback): void;

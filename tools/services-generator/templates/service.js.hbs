@@ -3,20 +3,20 @@ const { {{serviceName}}ServiceClient } = require('./{{snakeCase serviceName}}_gr
 const { FINAZON_GRPC_HOST } = require('./constants');
 
 class {{serviceName}}Service {
-    apiKey;
+    #apiKey;
+    #service;
+    #meta;
 
     constructor(apiKey) {
-        this.apiKey = apiKey;
+        this.#apiKey = apiKey;
+        this.#service = new {{serviceName}}ServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
+        this.#meta = new Metadata();
+        this.#meta.set('authorization', `Bearer ${this.#apiKey}`);
     }
 
     {{#each rpcList}}
     {{firstLower rpcName}}(request, callback) {
-        const {{firstLower ../serviceName}}Service = new {{../serviceName}}ServiceClient(FINAZON_GRPC_HOST, credentials.createSsl());
-
-        const meta = new Metadata();
-        meta.set('authorization', `Bearer ${this.apiKey}`);
-        
-        {{firstLower ../serviceName}}Service.{{firstLower rpcName}}(request, meta, (err, value) => {
+        this.#service.{{firstLower rpcName}}(request, this.#meta, (err, value) => {
             callback(err, value);
         });
     }
