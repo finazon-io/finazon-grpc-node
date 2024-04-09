@@ -1,5 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SERVICES_GENERATOR=${SCRIPT_DIR}/tools/services-generator
 
 ### Implementation ##################################################
 function main {
@@ -11,9 +12,8 @@ function main {
   echo "exports.FINAZON_GRPC_HOST='grpc-v${versionMajor}-${versionMinor}.finazon.io:443';" > ${SCRIPT_DIR}/dist/constants.js
 
   # generate service wrappers
-  docker compose down --rmi local
-  docker compose up
-  docker compose down --rmi local
+  npm ci --prefix ${SERVICES_GENERATOR}
+  node ${SERVICES_GENERATOR}/src/index.js ${SERVICES_GENERATOR}/templates ${SCRIPT_DIR}/proto ${SCRIPT_DIR}/dist
 }
 
 # Script's entry point: #############################################

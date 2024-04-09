@@ -1,8 +1,0 @@
-version: "3"
-services:
-  grpc-services-generator:
-    build:
-      context: .
-      dockerfile: ./tools/services-generator/Dockerfile
-    volumes:
-      - ./dist:/opt/app/dist
