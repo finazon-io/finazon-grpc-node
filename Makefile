@@ -12,4 +12,5 @@ bump_version:
 
 .PHONY: publish
 publish:
+	@echo "registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=$GRPC_NPM_TOKEN" > .npmrc
 	@npm publish --access public
