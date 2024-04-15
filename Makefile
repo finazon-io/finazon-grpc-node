@@ -8,7 +8,7 @@ generate:
 .PHONY: bump_version
 bump_version:
 	@[ "${VERSION}" ] || ( echo "VERSION is not set"; exit 1 )
-	@npm version ${VERSION} --git-tag-version false
+	@npm version --allow-same-version ${VERSION} --git-tag-version false
 
 .PHONY: publish
 publish:
